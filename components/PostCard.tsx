@@ -1,6 +1,5 @@
 "use client";
 import { timeAgo } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
 import { Post } from "@prisma/client";
 import axios from "axios";
 /* eslint-disable @next/next/no-img-element */
@@ -13,7 +12,6 @@ type Props = {
 };
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { user } = useUser();
   const { id, title, imageUrl, content, createdAt } = post;
 
   const onDelete = async () => {
@@ -36,18 +34,16 @@ const PostCard: FC<Props> = ({ post }) => {
             </h4>
           </div>
         </div>
-        {user?.firstName === "Enio" && (
-          <div className="flex items-center gap-4">
-            <Link href={`/${id}/update-post`}>
-              <Pencil size={20} />
-            </Link>
-            <Trash
-              size={20}
-              className="text-red-500 cursor-pointer"
-              onClick={onDelete}
-            />
-          </div>
-        )}
+        <div className="flex items-center gap-4">
+          <Link href={`/${id}/update-post`}>
+            <Pencil size={20} />
+          </Link>
+          <Trash
+            size={20}
+            className="text-red-500 cursor-pointer"
+            onClick={onDelete}
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-6 mt-4">
         <h1 className="font-semibold text-2xl text-center">{title}</h1>
