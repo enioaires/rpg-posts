@@ -22,6 +22,7 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "foreground-2": "#808080",
         colors: {
           "dark-1": "#000000",
           "dark-2": "#09090A",

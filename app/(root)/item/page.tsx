@@ -6,8 +6,7 @@ import Link from "next/link";
 const RootPage = async () => {
   const posts = await getPosts();
 
-  //criar um novo array de posts com apenas os posts de lore
-  const lorePosts = posts.filter((post) => post.type === "lore");
+  const itemPosts = posts.filter((post) => post.type === "item");
 
   return (
     <div className="flex flex-1">
@@ -22,13 +21,13 @@ const RootPage = async () => {
             </Link>
           </div>
           <ul className="flex flex-col flex-1 gap-9 w-full"></ul>
-          {lorePosts.length === 0 && (
+          {itemPosts.length === 0 && (
             <h1 className="text-2xl font-semibold text-center">
               Nenhum post para exibir
             </h1>
           )}
-          {lorePosts.map((post) => (
-            <>{post && <PostCard key={post.id} post={post} />}</>
+          {itemPosts.map((post) => (
+            <PostCard key={post.id} post={post} />
           ))}
         </div>
       </div>

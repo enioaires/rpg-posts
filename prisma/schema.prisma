@@ -11,12 +11,22 @@ datasource db {
   relationMode = "prisma"
 }
 
-model account {
-  id        String   @id @default(uuid())
+model Post {
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  title     String
+  imageUrl  String?
+  content   String?       @db.VarChar(1000)
+  type      String        @default("lore")
+  comments  CommentPost[]
+}
+
+model CommentPost {
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  email     String   @unique
-  name      String?
-  avatarUrl String?
-  userId    String?
+  content   String?
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id])
 }

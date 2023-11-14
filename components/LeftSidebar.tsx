@@ -1,20 +1,24 @@
 "use client";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { Book, Home, Mail, User } from "lucide-react";
+import { Book, Home, PlusSquare, Sword } from "lucide-react";
 import LeftSidebarItem from "./LeftSidebarItem";
 import { usePathname } from "next/navigation";
-import { getUserInfo } from "@/actions/getUserInfo";
 
 const leftSidebarItems = [
   {
-    name: "Home",
+    name: "Lore",
     link: "/",
-    icon: Home,
+    icon: Book,
   },
   {
-    name: "Usuário",
-    link: "/account",
-    icon: User,
+    name: "Item",
+    link: "/item",
+    icon: Sword,
+  },
+  {
+    name: "Criar Post",
+    link: "/create-post",
+    icon: PlusSquare,
   },
   // {
   //   name: "About",
@@ -28,7 +32,7 @@ const leftSidebarItems = [
   // },
 ];
 
-const LeftSidebar = ({ account }: any) => {
+const LeftSidebar = () => {
   const { user } = useUser();
   const pathname = usePathname();
 
@@ -36,7 +40,6 @@ const LeftSidebar = ({ account }: any) => {
     return pathname === link;
   };
 
-  localStorage.setItem("account", JSON.stringify(account));
   return (
     <div className="bg-slate-900 md:flex px-6 pt-10 min-w-[270px] flex-col hidden h-screen">
       <div className="flex items-center gap-2">
@@ -59,7 +62,8 @@ const LeftSidebar = ({ account }: any) => {
       </div>
       <ul className="flex flex-col gap-8 mt-8">
         {leftSidebarItems.map((item) => {
-          if (item.name === "Usuário" && account) return null;
+          if (item.name === "Usuário" && user?.firstName !== "Enio")
+            return null;
           return (
             <LeftSidebarItem
               key={item.name}
